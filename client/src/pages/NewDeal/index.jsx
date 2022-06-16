@@ -25,7 +25,7 @@ const StageSchema = Yup.object().shape({
         .required('Название обязательно'),
     Description: Yup.string()
         .min(2, 'Описание очень короткое')
-        .max(500, 'Описание очень длинное')
+        .max(22250, 'Описание очень длинное')
         .required('Описание обязательно'),
     MoneyGoal: Yup.number()
         .required('Цель обязательна'),
@@ -47,7 +47,7 @@ const DealSchema = Yup.object().shape({
         .required('Название обязательно'),
     Description: Yup.string()
         .min(2, 'Описание очень короткое')
-        .max(250, 'Описание очень длинное')
+        .max(22250, 'Описание очень длинное')
         .required('Описание обязательно'),
     Stages: Yup.object().shape({
         0: StageSchema.default(undefined),
@@ -130,7 +130,7 @@ export default function NewDealPage({user}) {
     const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
 
     return <Space className="register-wrapper" direction="vertical">
-        <h2>Создать сделку</h2>
+        <h2>Создать проект или сделку</h2>
         <Formik
             initialValues={DealSchema.cast()} 
             validationSchema={DealSchema}
@@ -168,7 +168,7 @@ export default function NewDealPage({user}) {
                         label='Описание'
                         placeholder='Опишите идею проекта или сделки'
                         renderComponent={Input.TextArea}
-                        maxLength={50}
+                        maxLength={22250}
                     />
 
                     {
@@ -194,7 +194,7 @@ export default function NewDealPage({user}) {
                                     label='Описание этапа'
                                     placeholder='Описание этапа'
                                     renderComponent={Input.TextArea}
-                                    maxLength={10000}
+                                    maxLength={22250}
                                 />
 
                                 <FieldFormikContext

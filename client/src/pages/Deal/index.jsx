@@ -115,9 +115,9 @@ export default function DealPage({user, users}) {
 
                 <Paragraph>Примерная дата окончания: {finalDate}</Paragraph>
                 <Paragraph>Количество инвесторов: {investors}</Paragraph>
-                <Progress status="active" percent={currentBalance/moneyToRaise * 100} />
+                <Progress status="active" percent={Math.floor(currentBalance/moneyToRaise * 100)} />
                 <Paragraph style={{color: currentBalance/moneyToRaise > 0.5 ? 'green' : 'gray'}}>Собрано {currentBalance}/{moneyToRaise} руб.</Paragraph>
-                <Paragraph >Прогресс по выполнению этапов <Progress style={{marginRight: '10px'}} type="circle" percent={completion} width={40} /></Paragraph>
+                <Paragraph >Прогресс по выполнению этапов <Progress style={{marginRight: '10px'}} type="circle" percent={Math.floor(completion)} width={40} /></Paragraph>
                 <Timeline>
                     {deal.Stages.map(stage => {
                         return <Timeline.Item key={stage.ID} color={stageColor(stage)}>{stage.Title}</Timeline.Item>
@@ -198,6 +198,10 @@ export default function DealPage({user, users}) {
                             IsSubmited: false,
                             IsStarted: true
                         })
+                        updateUser({
+                            ID: user.ID,
+                            balance: user.Balance + lastStageToStart.MoneyGoal
+                        })
                     }} loading={isLoading} disabled={isLoading || isStageUpdating}>
                         Начать выполнение этапа
                     </Button>: null
@@ -214,7 +218,7 @@ export default function DealPage({user, users}) {
                     </Button>: null
                 }
                 {
-                    deal.IsApproved && !deal.IsFrozen && !deal.IsFinished && !deal.IsStarted && !isDifferentUser ? <Button type='danger' style={{marginBottom: '30px'}} onClick={() => {
+                    moneyToRaise <= currentBalance && deal.IsApproved && !deal.IsFrozen && !deal.IsFinished && !deal.IsStarted && !isDifferentUser ? <Button type='danger' style={{marginBottom: '30px'}} onClick={() => {
                         updateDeal({ID: deal.ID, IsStarted: true })
                     }} loading={isLoading} disabled={isLoading}>
                         Начать проект или сделку

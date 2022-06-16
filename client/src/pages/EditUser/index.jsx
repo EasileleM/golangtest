@@ -53,8 +53,6 @@ export default function EditUserPage({user: currentUser}) {
     const navigate = useNavigate()
 
     const canSee = currentUser.ID === Number(id) || currentUser.Role === 2
-    console.log('can', canSee, currentUser.ID, id, currentUser.Role)
-
     
     const {data: user, isLoading: isUserLoading }= useGetUserByIdQuery({ID: id}, {
         skip: !canSee

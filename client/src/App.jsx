@@ -67,7 +67,7 @@ function App() {
 
   const userItems = [
     [AlertOutlined, 'Проекты и сделки', '/'],
-    ...(user?.IsPromoted || isModerator || isAdmin ? [[StockOutlined, 'Создать сделку', `/deal/create`]] : []),
+    ...(user?.IsPromoted || isModerator || isAdmin ? [[StockOutlined, 'Создать проект или сделку', `/deal/create`]] : []),
     ...(user?.IsPromoted || isModerator || isAdmin ? [[WalletOutlined, 'Мои проекты и сделки', `/user/${user?.ID}/deals`]] : [])
   ].map(
     ([icon, title, url], index) => {
